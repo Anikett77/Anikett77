@@ -110,13 +110,25 @@
 
 <h4 align="center">🚀 Featured Projects</h4>
 
-<img align="left" height="200" src="https://i.imgflip.com/65efzo.gif"/>
+<table>
+<tr>
+<td width="250">
+
+<img src="/AutoXplore.gif" width="220"/>
+
+</td>
+
+<td>
 
 ### 🚗 AutoXplore
-Full-stack MERN car buying and rental platform that allows users to explore vehicles, view details, and book cars seamlessly.  
+
+Full-stack MERN car buying and rental platform that allows users to explore vehicles, view details, and book cars seamlessly.
+
 Includes authentication, booking management, dynamic listings, and responsive UI.
 
-<br clear="both">
+</td>
+</tr>
+</table>
 
 <img align="left" height="200" src="https://i.imgflip.com/65efzo.gif"/>
 
