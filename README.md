@@ -124,25 +124,55 @@
 
 Full-stack MERN car buying and rental platform that allows users to explore vehicles, view details, and book cars seamlessly.
 
-Includes authentication, booking management, dynamic listings, and responsive UI.
+Includes authentication, booking management, dynamic car listings, and responsive UI, providing a smooth end-to-end car rental and purchasing experience.
 
 </td>
 </tr>
 </table>
 
-<img align="left" height="200" src="https://i.imgflip.com/65efzo.gif"/>
+<br>
+
+<table>
+<tr>
+<td width="250">
+
+<img src="/Navix AI.gif" width="220"/>
+
+</td>
+
+<td>
 
 ### 🧭 Navix AI
-AI-powered travel planning application that generates personalized trip itineraries using AI APIs.
 
-<br clear="both">
+AI-powered travel planning web application that generates personalized trip itineraries based on user preferences.
 
-<img align="left" height="200" src="https://i.imgflip.com/65efzo.gif"/>
+Built with Next.js and AI APIs, helping users discover destinations, plan activities, and organize travel schedules intelligently.
+
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<td width="250">
+
+<img src="/tedx.gif" width="220"/>
+
+</td>
+
+<td>
 
 ### 🎤 TEDx OIST Website
-Modern event website showcasing speakers, event schedule, and registration with responsive design.
 
-<br clear="both">
+Modern event website for TEDx OIST designed to showcase speakers, event details, and registration information.
+
+Built using Next.js and Tailwind CSS with responsive design, smooth animations, and an engaging UI for attendees.
+
+</td>
+</tr>
+</table>
 
 ---
 
