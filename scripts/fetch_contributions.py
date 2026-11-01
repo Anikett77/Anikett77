@@ -1,54 +1,19 @@
 
-import requests
-from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
 import json
 import re
-import os
+from datetime import datetime
+from pathlib import Path
 
-# ---------------- CONFIGURATION ----------------
+import requests
+from bs4 import BeautifulSoup
 
 USERNAME = "Anikett77"
-
 URL = f"https://github.com/users/{USERNAME}/contributions"
 
-OUTPUT_FILE = "data/contributions.json"
-
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; GitHubProfileArt/1.0)"
-}
-
-# -----------------------------------------------
-
-
-def get_contribution_count(day):
-
-    # First try GitHub's data-count attribute
-    data_count = day.get("data-count")
-
-    if data_count is not None:
-        try:
-            return int(data_count)
-        except ValueError:
-            pass
-
-    # Otherwise read the accessible label
-    label = day.get("aria-label", "")
-
-    match = re.search(
-        r"([\d,]+)\s+contributions?",
-        label,
-        re.IGNORECASE
-    )
-
-    if match:
-        return int(match.group(1).replace(",", ""))
-
-    return 0
+OUTPUT = Path("data/contributions.json")
 
 
 def get_level(count):
-
     if count == 0:
         return 0
     elif count <= 2:
@@ -59,55 +24,15 @@ def get_level(count):
         return 3
     elif count <= 14:
         return 4
-    else:
-        return 5
+    return 5
 
 
-def calculate_streaks(days):
-
-    current_streak = 0
-    longest_streak = 0
-    streak = 0
-
-    today = datetime.now().date()
-
-    active_dates = {
-        datetime.strptime(day["date"], "%Y-%m-%d").date()
-        for day in days
-        if day["count"] > 0
-    }
-
-    # Longest streak
-    for day in days:
-
-        if day["count"] > 0:
-            streak += 1
-            longest_streak = max(longest_streak, streak)
-        else:
-            streak = 0
-
-    # Current streak
-    check_date = today
-
-    # If today has no contributions, yesterday may
-    # still be the latest active streak date.
-    if check_date not in active_dates:
-        check_date -= timedelta(days=1)
-
-    while check_date in active_dates:
-        current_streak += 1
-        check_date -= timedelta(days=1)
-
-    return current_streak, longest_streak
-
-
-def fetch_contributions():
-
+def main():
     print(f"Fetching contributions for {USERNAME}...")
 
     response = requests.get(
         URL,
-        headers=HEADERS,
+        headers={"User-Agent": "Mozilla/5.0"},
         timeout=30
     )
 
@@ -115,98 +40,97 @@ def fetch_contributions():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # GitHub contribution calendar cells
-    cells = soup.select(
-        "td.ContributionCalendar-day[data-date], "
-        "[data-date][data-level]"
-    )
+    cells = soup.select(".ContributionCalendar-day")
 
     if not cells:
-        raise RuntimeError(
-            "No contribution cells found. "
-            "GitHub may have changed its HTML structure."
-        )
+        raise RuntimeError("No contribution cells found.")
 
-    days = []
+    contributions = []
 
     for cell in cells:
 
-        date = cell.get("data-date")
+        day = cell.get("data-date")
+        cell_id = cell.get("id")
 
-        if not date:
+        if not day or not cell_id:
             continue
 
-        count = get_contribution_count(cell)
+        # Find the tooltip connected to this contribution cell.
+        tooltip = soup.find(
+            "tool-tip",
+            attrs={"for": cell_id}
+        )
 
-        days.append({
-            "date": date,
+        if not tooltip:
+            raise RuntimeError(
+                f"Tooltip not found for {day}"
+            )
+
+        tooltip_text = tooltip.get_text(" ", strip=True)
+
+        # Extract the actual contribution count.
+        match = re.search(
+            r"([\d,]+)\s+contributions?",
+            tooltip_text,
+            re.IGNORECASE
+        )
+
+        if match:
+            count = int(match.group(1).replace(",", ""))
+        elif "no contributions" in tooltip_text.lower():
+            count = 0
+        else:
+            raise RuntimeError(
+                f"Could not parse tooltip for {day}: {tooltip_text}"
+            )
+
+        contributions.append({
+            "date": day,
             "count": count,
             "level": get_level(count)
         })
 
-    # Remove duplicate dates and sort
-    unique_days = {
-        day["date"]: day
-        for day in days
+    if not contributions:
+        raise RuntimeError("No contribution data extracted.")
+
+    # Remove duplicate dates and sort chronologically.
+    unique = {
+        item["date"]: item
+        for item in contributions
     }
 
-    days = sorted(
-        unique_days.values(),
+    contributions = sorted(
+        unique.values(),
         key=lambda item: item["date"]
     )
 
-    if not days:
-        raise RuntimeError("No valid contribution dates found.")
+    total = sum(
+        item["count"]
+        for item in contributions
+    )
 
-    total = sum(day["count"] for day in days)
-
-    current_streak, longest_streak = calculate_streaks(days)
-
-    best_day = max(
-        days,
-        key=lambda item: item["count"]
+    OUTPUT.parent.mkdir(
+        parents=True,
+        exist_ok=True
     )
 
     data = {
         "username": USERNAME,
-        "generated_at": datetime.now().isoformat(),
-        "total_contributions": total,
-        "current_streak": current_streak,
-        "longest_streak": longest_streak,
-        "best_day": best_day,
-        "days": days
+        "total": total,
+        "updated_at": datetime.now().isoformat(),
+        "contributions": contributions
     }
 
-    # Create data directory if missing
-    os.makedirs("data", exist_ok=True)
+    OUTPUT.write_text(
+        json.dumps(data, indent=4),
+        encoding="utf-8"
+    )
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
-
-        json.dump(
-            data,
-            file,
-            indent=4
-        )
-
-    print("--------------------------------")
-    print("Contribution data fetched!")
-    print("--------------------------------")
-    print(f"Username: {USERNAME}")
+    print("\nContribution data fetched successfully!")
+    print(f"Days collected: {len(contributions)}")
     print(f"Total contributions: {total}")
-    print(f"Current streak: {current_streak}")
-    print(f"Longest streak: {longest_streak}")
-    print(f"Best day: {best_day['date']}")
-    print(f"Saved to: {OUTPUT_FILE}")
+    print(f"Saved to: {OUTPUT}")
 
 
 if __name__ == "__main__":
-
-    try:
-        fetch_contributions()
-
-    except requests.RequestException as error:
-        print(f"Network error: {error}")
-
-    except Exception as error:
-        print(f"Error: {error}")
-        raise
+    main()

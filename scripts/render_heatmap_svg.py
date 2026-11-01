@@ -42,7 +42,7 @@ def generate_svg(data):
 
     print("Generating contribution heatmap...")
 
-    days = data["days"]
+    days = data["contributions"]
 
     if not days:
         raise ValueError("No contribution data available.")
@@ -133,7 +133,7 @@ def generate_svg(data):
     """)
 
     # Header
-    total = data["total_contributions"]
+    total = data["total"]
 
     svg.append(f"""
         <text x="20" y="24"
