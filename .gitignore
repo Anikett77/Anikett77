@@ -1,0 +1,13 @@
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
+# Original and processed photos
+source-photo.jpg
+source-prepped.png
+
+# Python environment variables
+.env
+.env.*
+!.env.example

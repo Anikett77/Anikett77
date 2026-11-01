@@ -1,0 +1,262 @@
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="490"
+         height="390"
+         viewBox="0 0 490 390">
+
+        <rect width="100%" height="100%"
+              rx="12"
+              fill="#0d1117"
+              stroke="#30363d"
+              stroke-width="2"/>
+
+        <style>
+            text {
+                font-family: 'Courier New', monospace;
+            }
+
+            .row {
+                animation: appear 0.6s ease-out both;
+            }
+
+            @keyframes appear {
+                from {
+                    opacity: 0.15;
+                    transform: translateY(7px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    
+
+        <circle cx="22" cy="22" r="6" fill="#ff5f56"/>
+        <circle cx="42" cy="22" r="6" fill="#ffbd2e"/>
+        <circle cx="62" cy="22" r="6" fill="#27c93f"/>
+
+        <text x="245" y="27"
+              fill="#8b949e"
+              font-size="12"
+              text-anchor="middle">
+            anikett77@github — bash
+        </text>
+
+        <line x1="0" y1="45" x2="490" y2="45"
+              stroke="#30363d"/>
+    
+
+    <text x="25" y="83"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="19"
+          font-weight="bold">
+        anikett77@github
+    </text>
+    
+
+    <text x="25" y="108"
+          fill="#8b949e"
+          font-family="Courier New, monospace"
+          font-size="13"
+          font-weight="normal">
+        ~ $ whoami
+    </text>
+    
+
+    <text x="25" y="145"
+          fill="#58a6ff"
+          font-family="Courier New, monospace"
+          font-size="20"
+          font-weight="bold">
+        Aniket Chaturvedi
+    </text>
+    
+
+    <text x="25" y="169"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="normal">
+        Full-Stack Developer | AI/ML Enthusiast
+    </text>
+    
+
+        <g class="row">
+            
+    <text x="25" y="215"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="bold">
+        EDUCATION
+    </text>
+    
+            
+    <text x="125" y="215"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="11"
+          font-weight="normal">
+        B.Tech | OIST Bhopal
+    </text>
+    
+        
+            <animate attributeName="opacity"
+                     from="0.15"
+                     to="1"
+                     begin="0.00s"
+                     dur="0.5s"
+                     fill="freeze"/>
+            </g>
+
+        <g class="row">
+            
+    <text x="25" y="242"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="bold">
+        STACK
+    </text>
+    
+            
+    <text x="125" y="242"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="11"
+          font-weight="normal">
+        Python, C++, React, Next.js, Node.js
+    </text>
+    
+        
+            <animate attributeName="opacity"
+                     from="0.15"
+                     to="1"
+                     begin="0.18s"
+                     dur="0.5s"
+                     fill="freeze"/>
+            </g>
+
+        <g class="row">
+            
+    <text x="25" y="269"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="bold">
+        DATABASE
+    </text>
+    
+            
+    <text x="125" y="269"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="11"
+          font-weight="normal">
+        MongoDB, MySQL
+    </text>
+    
+        
+            <animate attributeName="opacity"
+                     from="0.15"
+                     to="1"
+                     begin="0.36s"
+                     dur="0.5s"
+                     fill="freeze"/>
+            </g>
+
+        <g class="row">
+            
+    <text x="25" y="296"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="bold">
+        PROJECTS
+    </text>
+    
+            
+    <text x="125" y="296"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="11"
+          font-weight="normal">
+        Uplyft AI, Navix AI, AutoXplore
+    </text>
+    
+        
+            <animate attributeName="opacity"
+                     from="0.15"
+                     to="1"
+                     begin="0.54s"
+                     dur="0.5s"
+                     fill="freeze"/>
+            </g>
+
+        <g class="row">
+            
+    <text x="25" y="323"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="bold">
+        INTERESTS
+    </text>
+    
+            
+    <text x="125" y="323"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="11"
+          font-weight="normal">
+        Generative AI, ML, Web Development
+    </text>
+    
+        
+            <animate attributeName="opacity"
+                     from="0.15"
+                     to="1"
+                     begin="0.72s"
+                     dur="0.5s"
+                     fill="freeze"/>
+            </g>
+
+        <g class="row">
+            
+    <text x="25" y="350"
+          fill="#3fb950"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="bold">
+        STATUS
+    </text>
+    
+            
+    <text x="125" y="350"
+          fill="#e6edf3"
+          font-family="Courier New, monospace"
+          font-size="11"
+          font-weight="normal">
+        Building | Learning | Shipping
+    </text>
+    
+        
+            <animate attributeName="opacity"
+                     from="0.15"
+                     to="1"
+                     begin="0.90s"
+                     dur="0.5s"
+                     fill="freeze"/>
+            </g>
+
+    <text x="25" y="378"
+          fill="#d29922"
+          font-family="Courier New, monospace"
+          font-size="12"
+          font-weight="normal">
+        anikett77@github ~ $ _
+    </text>
+    
+</svg>
